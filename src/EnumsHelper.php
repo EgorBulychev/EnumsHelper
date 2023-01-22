@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace EB\EnumsHelper;
+namespace Bulychev\EnumsHelper;
 
 trait EnumsHelper
 {
