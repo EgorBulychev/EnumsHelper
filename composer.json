@@ -1,0 +1,20 @@
+{
+  "name": "eb/enums-helper",
+  "type": "library",
+  "description": "Helpers for enums",
+  "keywords": ["enum","helper"],
+  "homepage": "https://github.com/EgorBulychev/EnumsHelper",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Egor Bulychev",
+      "email": "egor@bulychev.info"
+    }
+  ],
+  "require": {
+    "php": ">=8.1.0"
+  },
+  "autoload": {
+    "psr-4": { "EB\\EnumsHelper": "src/" }
+  }
+}
