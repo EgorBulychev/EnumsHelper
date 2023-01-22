@@ -6,7 +6,8 @@ namespace Bulychev\EnumsHelper;
 use Attribute;
 
 #[Attribute]
-class Description {
+class Description
+{
     public function __construct(public string $description)
     {
     }
