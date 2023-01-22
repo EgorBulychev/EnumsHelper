@@ -2,7 +2,7 @@
   "name": "bulychev/enums-helper",
   "type": "library",
   "description": "Helpers for enums",
-  "keywords": ["enum","helper"],
+  "keywords": ["enum","enums","helper"],
   "homepage": "https://github.com/EgorBulychev/EnumsHelper",
   "license": "MIT",
   "authors": [
