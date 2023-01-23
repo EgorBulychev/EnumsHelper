@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bulychev\EnumsHelper;
+namespace Bulychev\Enums;
 
 use ReflectionEnum;
 use ReflectionEnumUnitCase;

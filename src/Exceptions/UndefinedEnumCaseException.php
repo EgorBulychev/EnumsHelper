@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bulychev\EnumsHelper\Exceptions;
+namespace Bulychev\Enums\Exceptions;
 
 use Exception;
 

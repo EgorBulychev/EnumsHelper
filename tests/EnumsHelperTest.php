@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Bulychev\Tests\EnumsHelper;
+namespace Bulychev\Enums\Tests;
 
-use Bulychev\EnumsHelper\Description;
-use Bulychev\EnumsHelper\EnumsHelper;
-use Bulychev\EnumsHelper\Exceptions\UndefinedEnumCaseException;
-use Bulychev\EnumsHelper\Property;
+use Bulychev\Enums\Description;
+use Bulychev\Enums\EnumsHelper;
+use Bulychev\Enums\Exceptions\UndefinedEnumCaseException;
+use Bulychev\Enums\Property;
 use PHPUnit\Framework\TestCase;
 
 class EnumsHelperTest extends TestCase
