@@ -1,3 +1,3 @@
 # EnumsHelper
 
-`composer require bulychev/enums-helper`
+`composer require bulychev/enums`
