@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bulychev\EnumsHelper;
@@ -9,7 +10,7 @@ use BackedEnum;
 
 trait EnumsHelper
 {
-    public function __invoke()
+    public function __invoke(): int|string
     {
         return $this instanceof BackedEnum ? $this->value : $this->name;
     }
@@ -37,7 +38,11 @@ trait EnumsHelper
 
     public static function array(): array
     {
-        return array_combine(self::values(), self::names());
+        $cases = self::cases();
+
+        return $cases[0] instanceof BackedEnum
+            ? array_combine(self::values(), self::names())
+            : array_column($cases, 'name');
     }
 
     public function description(): ?string

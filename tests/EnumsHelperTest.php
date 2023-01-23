@@ -1,5 +1,8 @@
 <?php
+
 declare(strict_types=1);
+
+namespace Bulychev\Tests\EnumsHelper;
 
 use Bulychev\EnumsHelper\Description;
 use Bulychev\EnumsHelper\EnumsHelper;
@@ -11,41 +14,45 @@ class EnumsHelperTest extends TestCase
 {
     public function testValues(): void
     {
-        $this->assertSame([1, 10, 50], Request::values());
-        $this->assertSame([], Role::values());
+        self::assertSame([1, 10, 50], Request::values());
+        self::assertSame([], Role::values());
     }
 
     public function testNames(): void
     {
-        $this->assertSame(['OPEN', 'PENDING', 'DONE'], Request::names());
-        $this->assertSame(['ADMIN', 'MANAGER'], Role::names());
+        self::assertSame(['OPEN', 'PENDING', 'DONE'], Request::names());
+        self::assertSame(['ADMIN', 'MANAGER'], Role::names());
     }
 
     public function testArray(): void
     {
-        $this->assertSame([1 => 'OPEN', 10 => 'PENDING', 50 => 'DONE'], Request::array());
+        self::assertSame([1 => 'OPEN', 10 => 'PENDING', 50 => 'DONE'], Request::array());
+        self::assertSame(['ADMIN', 'MANAGER'], Role::array());
     }
 
     public function testDescription(): void
     {
-        $this->assertSame('Admin role', Role::ADMIN->description());
-        $this->assertNull(Role::MANAGER->description());
-        $this->assertNull(Request::OPEN->description());
+        self::assertSame('Admin role', Role::ADMIN->description());
+        self::assertNull(Role::MANAGER->description());
+        self::assertNull(Request::OPEN->description());
     }
 
     public function testInvoke(): void
     {
         $open = Request::OPEN;
-        $this->assertSame(1, $open());
-        $this->assertSame(1, Request::OPEN());
-        $this->assertSame('ADMIN', Role::ADMIN());
+        self::assertSame(1, $open());
+        self::assertSame(1, Request::OPEN());
+        self::assertSame('ADMIN', Role::ADMIN());
 
         $this->expectException(UndefinedEnumCaseException::class);
 
-        $user = Role::USER();
+        Role::USER();
     }
 }
 
+/**
+ * @method static OPEN()
+ */
 enum Request: int
 {
     use EnumsHelper;
@@ -55,6 +62,9 @@ enum Request: int
     case DONE = 50;
 }
 
+/**
+ * @method static ADMIN()
+ */
 #[Property(Description::class)]
 enum Role
 {

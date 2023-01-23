@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bulychev\EnumsHelper;
@@ -8,6 +9,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 class Property
 {
+    /** @var string[] */
     public array $properties;
 
     public function __construct(mixed ...$properties)
