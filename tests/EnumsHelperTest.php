@@ -10,67 +10,100 @@ use Bulychev\Enums\Exceptions\UndefinedEnumCaseException;
 use Bulychev\Enums\Property;
 use PHPUnit\Framework\TestCase;
 
-class EnumsHelperTest extends TestCase
+/**
+ * @internal
+ */
+final class EnumsHelperTest extends TestCase
 {
     public function testValues(): void
     {
-        self::assertSame([1, 10, 50], Request::values());
-        self::assertSame([], Role::values());
+        self::assertSame([1, 2], Status::values());
+        self::assertSame(['red color', 'white color'], Color::values());
+        self::assertSame([], Lang::values());
+        self::assertSame([], Nothing::values());
     }
 
     public function testNames(): void
     {
-        self::assertSame(['OPEN', 'PENDING', 'DONE'], Request::names());
-        self::assertSame(['ADMIN', 'MANAGER'], Role::names());
+        self::assertSame(['OPEN', 'CLOSE'], Status::names());
+        self::assertSame(['RED', 'WHITE'], Color::names());
+        self::assertSame(['RU', 'KG'], Lang::names());
+        self::assertSame([], Nothing::names());
     }
 
     public function testArray(): void
     {
-        self::assertSame([1 => 'OPEN', 10 => 'PENDING', 50 => 'DONE'], Request::array());
-        self::assertSame(['ADMIN', 'MANAGER'], Role::array());
+        self::assertSame([1 => 'OPEN', 2 => 'CLOSE'], Status::array());
+        self::assertSame(['red color' => 'RED', 'white color' => 'WHITE'], Color::array());
+        self::assertSame(['RU', 'KG'], Lang::array());
+        self::assertSame([], Nothing::array());
     }
 
     public function testDescription(): void
     {
-        self::assertSame('Admin role', Role::ADMIN->description());
-        self::assertNull(Role::MANAGER->description());
-        self::assertNull(Request::OPEN->description());
+        self::assertSame('Русский язык', Lang::RU->description());
+        self::assertSame('Open status', Status::OPEN->description());
+        self::assertSame('Белый', Color::WHITE->description());
+        self::assertNull(Status::CLOSE->description());
+        self::assertNull(Color::RED->description());
     }
 
     public function testInvoke(): void
     {
-        $open = Request::OPEN;
+        $open = Status::OPEN;
         self::assertSame(1, $open());
-        self::assertSame(1, Request::OPEN());
-        self::assertSame('ADMIN', Role::ADMIN());
+        self::assertSame(1, Status::OPEN());
+        self::assertSame('red color', Color::RED());
+        self::assertSame('KG', Lang::KG());
 
         $this->expectException(UndefinedEnumCaseException::class);
 
-        Role::USER();
+        Status::NEW();
     }
 }
 
 /**
- * @method static OPEN()
+ * @method static int OPEN()
+ * @method static int NEW()
  */
-enum Request: int
+#[Property(Description::class)]
+enum Status: int
 {
     use EnumsHelper;
 
+    #[Description('Open status')]
     case OPEN = 1;
-    case PENDING = 10;
-    case DONE = 50;
+    case CLOSE = 2;
 }
 
 /**
- * @method static ADMIN()
+ * @method static string RED()
  */
 #[Property(Description::class)]
-enum Role
+enum Color: string
 {
     use EnumsHelper;
 
-    #[Description('Admin role')]
-    case ADMIN;
-    case MANAGER;
+    case RED = 'red color';
+
+    #[Description('Белый')]
+    case WHITE = 'white color';
+}
+
+/**
+ * @method static string KG()
+ */
+#[Property(Description::class)]
+enum Lang
+{
+    use EnumsHelper;
+    #[Description('Русский язык')]
+    case RU;
+    #[Description('Кыргыз тили')]
+    case KG;
+}
+
+enum Nothing
+{
+    use EnumsHelper;
 }

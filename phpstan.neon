@@ -1,4 +1,9 @@
 parameters:
-	level: 8
+	level: 9
 	paths:
 		- src
+		- tests
+
+	ignoreErrors:
+		- '#Else branch is unreachable because ternary operator condition is always true.#'
+		- '#Instanceof between (.*) BackedEnum will always evaluate to false.#'

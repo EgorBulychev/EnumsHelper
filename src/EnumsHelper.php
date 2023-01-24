@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Bulychev\Enums;
 
+use BackedEnum;
 use ReflectionEnum;
 use ReflectionEnumUnitCase;
-use BackedEnum;
+
+use function array_key_exists;
 
 trait EnumsHelper
 {
@@ -15,9 +17,15 @@ trait EnumsHelper
         return $this instanceof BackedEnum ? $this->value : $this->name;
     }
 
-    public static function __callStatic($name, $args)
+    /**
+     * @param array<mixed> $args
+     * @throws Exceptions\UndefinedEnumCaseException
+     */
+    public static function __callStatic(string $name, array $args): int|string
     {
-        foreach (self::cases() as $case) {
+        $cases = self::cases();
+        /** @phpstan-ignore-next-line */
+        foreach ($cases as $case) {
             if ($name === $case->name) {
                 return $case instanceof BackedEnum ? $case->value : $case->name;
             }
@@ -26,21 +34,31 @@ trait EnumsHelper
         throw new Exceptions\UndefinedEnumCaseException(self::class . '::' . $name);
     }
 
+    /**
+     * @return array<string>
+     */
     public static function names(): array
     {
         return array_column(self::cases(), 'name');
     }
 
+    /**
+     * @return array<int|string>
+     */
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
     }
 
+    /**
+     * @return array<int|string>
+     */
     public static function array(): array
     {
+        /** @var non-empty-array<mixed> $cases */
         $cases = self::cases();
 
-        return $cases[0] instanceof BackedEnum
+        return array_key_exists(0, $cases) && $cases[0] instanceof BackedEnum
             ? array_combine(self::values(), self::names())
             : array_column($cases, 'name');
     }
@@ -52,7 +70,7 @@ trait EnumsHelper
         if ($reflection->getAttributes()) {
             $caseAttributes = (new ReflectionEnumUnitCase($this::class, $this->name))->getAttributes();
 
-            return $caseAttributes
+            return $caseAttributes && $caseAttributes[0]->newInstance() instanceof Description
                 ? $caseAttributes[0]->newInstance()->description
                 : null;
         }
