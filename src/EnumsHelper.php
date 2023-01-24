@@ -67,7 +67,7 @@ trait EnumsHelper
     {
         $reflection = new ReflectionEnum($this);
 
-        if ($reflection->getAttributes()) {
+        if ($reflection->getAttributes() && $reflection->getAttributes()[0]->newInstance() instanceof Property) {
             $caseAttributes = (new ReflectionEnumUnitCase($this::class, $this->name))->getAttributes();
 
             return $caseAttributes && $caseAttributes[0]->newInstance() instanceof Description

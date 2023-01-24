@@ -46,6 +46,8 @@ final class EnumsHelperTest extends TestCase
         self::assertSame('Белый', Color::WHITE->description());
         self::assertNull(Status::CLOSE->description());
         self::assertNull(Color::RED->description());
+        self::assertNull(Color::RED->description());
+        self::assertNull(Ext::MKV->description());
     }
 
     public function testInvoke(): void
@@ -106,4 +108,12 @@ enum Lang
 enum Nothing
 {
     use EnumsHelper;
+}
+
+enum Ext
+{
+    use EnumsHelper;
+
+    case MP4;
+    case MKV;
 }
