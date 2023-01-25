@@ -1,8 +1,7 @@
-# EnumsHelper
 Enums Helper Traits for PHP 8.1+
 
 ## Installation
-`composer require bulychev/enums`
+> composer require bulychev/enums
 
 ## Usage trait
 
