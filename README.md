@@ -1,4 +1,4 @@
-Enums Helper Traits for PHP 8.1+
+Enums Helper Traits for PHP 8.1+ ❤
 
 ## Installation
 > composer require bulychev/enums

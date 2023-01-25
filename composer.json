@@ -1,10 +1,11 @@
 {
   "name": "bulychev/enums",
   "type": "library",
-  "description": "Helpers for enums",
+  "description": "Enums Helper Traits for PHP 8.1+",
   "keywords": ["enum","enums","helper"],
   "homepage": "https://github.com/EgorBulychev/EnumsHelper",
   "license": "MIT",
+  "version": "1.1.0",
   "authors": [
     {
       "name": "Egor Bulychev",
